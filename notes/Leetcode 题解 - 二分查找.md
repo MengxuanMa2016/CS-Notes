@@ -59,19 +59,26 @@ l + h 可能出现加法溢出，也就是说加法的结果大于整型能够�
 
 二分查找可以有很多变种，实现变种要注意边界值的判断。例如在一个有重复元素的数组中查找 key 的最左位置的实现如下：
 
-```java
-public int binarySearch(int[] nums, int key) {
-    int l = 0, h = nums.length;
-    while (l < h) {
-        int m = l + (h - l) / 2;
-        if (nums[m] >= key) {
-            h = m;
-        } else {
-            l = m + 1;
-        }
-    }
-    return l;
-}
+```python
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if not nums: return -1
+
+        left, right = 0, len(nums) - 1
+
+        while left + 1 < right:
+            mid = (left + right)/2
+            if nums[mid] >= target:
+                right = mid
+            elif nums[mid] < target:
+                left = mid + 1
+
+        return left if abs(nums[left] - target) < abs(nums[right] - target) else right
 ```
 
 该实现和正常实现有以下不同：
